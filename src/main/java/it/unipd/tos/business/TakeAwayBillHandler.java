@@ -48,6 +48,10 @@ public class TakeAwayBillHandler implements TakeAwayBill{
             total*=0.9;
         }
 
+        if(total<10){
+            total+=0.5;
+        }
+
         return total;
     }
 }
