@@ -14,12 +14,23 @@ public class TakeAwayBillHandler implements TakeAwayBill{
     @Override
     public double getOrderPrice(List<MenuItem> itemsOrdered,  User user) throws TakeAwayBillException {
         double total=0;
+        int nIceCreams=0;
+        double iceCreamLessExp=Double.MAX_VALUE;
 
         for (MenuItem menuItem : itemsOrdered) {
+            if (menuItem.getType() == MenuItem.items.Gelato) {
+                nIceCreams++;
 
+                if(iceCreamLessExp>menuItem.getPrice()){
+                    iceCreamLessExp= menuItem.getPrice();
+                }
+            }
             total+=menuItem.getPrice();
         }
 
+        if (nIceCreams>5){
+            total-=iceCreamLessExp/2;
+        }
 
         return total;
     }

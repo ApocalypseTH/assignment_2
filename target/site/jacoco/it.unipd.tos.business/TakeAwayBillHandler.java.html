@@ -14,14 +14,25 @@ import java.util.List;
     @Override
     public double getOrderPrice(List&lt;MenuItem&gt; itemsOrdered,  User user) throws TakeAwayBillException {
 <span class="nc" id="L16">        double total=0;</span>
+<span class="nc" id="L17">        int nIceCreams=0;</span>
+<span class="nc" id="L18">        double iceCreamLessExp=Double.MAX_VALUE;</span>
 
-<span class="nc bnc" id="L18" title="All 2 branches missed.">        for (MenuItem menuItem : itemsOrdered) {</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        for (MenuItem menuItem : itemsOrdered) {</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">            if (menuItem.getType() == MenuItem.items.Gelato) {</span>
+<span class="nc" id="L22">                nIceCreams++;</span>
 
-<span class="nc" id="L20">            total+=menuItem.getPrice();</span>
-<span class="nc" id="L21">        }</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">                if(iceCreamLessExp&gt;menuItem.getPrice()){</span>
+<span class="nc" id="L25">                    iceCreamLessExp= menuItem.getPrice();</span>
+                }
+            }
+<span class="nc" id="L28">            total+=menuItem.getPrice();</span>
+<span class="nc" id="L29">        }</span>
 
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (nIceCreams&gt;5){</span>
+<span class="nc" id="L32">            total-=iceCreamLessExp/2;</span>
+        }
 
-<span class="nc" id="L24">        return total;</span>
+<span class="nc" id="L35">        return total;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
