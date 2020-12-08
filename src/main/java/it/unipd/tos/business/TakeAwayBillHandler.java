@@ -17,8 +17,14 @@ public class TakeAwayBillHandler implements TakeAwayBill{
         int nIceCreams=0;
         double iceCreamLessExp=Double.MAX_VALUE;
         double iceCreamsAndPuddings = 0;
+        int nItems=0;
 
         for (MenuItem menuItem : itemsOrdered) {
+            nItems++;
+            if(nItems>30){
+                throw new TakeAwayBillException("Non puoi ordinare piu` di 30 articoli");
+            }
+
             if (menuItem.getType() == MenuItem.items.Gelato) {
                 nIceCreams++;
 
@@ -37,6 +43,7 @@ public class TakeAwayBillHandler implements TakeAwayBill{
         if (nIceCreams>5){
             total-=iceCreamLessExp/2;
         }
+
         if (iceCreamsAndPuddings>50){
             total*=0.9;
         }
