@@ -16,6 +16,7 @@ public class TakeAwayBillHandler implements TakeAwayBill{
         double total=0;
         int nIceCreams=0;
         double iceCreamLessExp=Double.MAX_VALUE;
+        double iceCreamsAndPuddings = 0;
 
         for (MenuItem menuItem : itemsOrdered) {
             if (menuItem.getType() == MenuItem.items.Gelato) {
@@ -25,11 +26,19 @@ public class TakeAwayBillHandler implements TakeAwayBill{
                     iceCreamLessExp= menuItem.getPrice();
                 }
             }
+
+            if (menuItem.getType() == MenuItem.items.Gelato || menuItem.getType() == MenuItem.items.Budino){
+                iceCreamsAndPuddings += menuItem.getPrice();
+            }
+
             total+=menuItem.getPrice();
         }
 
         if (nIceCreams>5){
             total-=iceCreamLessExp/2;
+        }
+        if (iceCreamsAndPuddings>50){
+            total*=0.9;
         }
 
         return total;
